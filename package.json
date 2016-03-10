@@ -1,0 +1,21 @@
+{
+  "name": "consider-tries",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "~1.21.4",
+    "chai": "~1.9.1",
+    "sinon": "~1.7.3",
+    "testem": "~0.6.19",
+    "JSON2": "~0.1.0",
+    "q": "~1.0.1",
+    "sinon-chai": "~2.4.0"
+  },
+  "author": "Marco Faustinelli",
+  "license": "GPL3"
+}
