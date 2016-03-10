@@ -1,6 +1,8 @@
 # consider-tries
 Indexing a whole book using tries, and comparing.
 
+![alt image](/img/IMB-Consider-Phlebas-Mark-Salwowski-Art.jpg)
+
 -------------
 0) clone the repo
 1) npm install
