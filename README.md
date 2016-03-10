@@ -1,5 +1,5 @@
 # consider-tries
-Indexing a whole book using tries, and comparing.
+Indexing a whole book with tries, and comparing.
 
 ![alt image](/img/IMB-Consider-Phlebas-Mark-Salwowski-Art.jpg)
 
