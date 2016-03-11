@@ -22,28 +22,28 @@
   var path = require('path');
 
   
-  describe('by reading files', function() {
-    describe('one can', function() {
-      it('check parts of the resolved promise', function() {
-        var words = readAndSplit('../doc/considerPhlebas.txt');
-        return words.then(function(data) {
-          expect(data.length).to.equal(172027); 
+  describe('after loading arrays of words from large files', function() {
+    beforeEach(function() {
+      this.words = readAndSplit('../doc/considerPhlebas.txt');
+    });
+    xit('check parts of the resolved promise', function() {
+      words.then(function(data) {
+        var trie = {};
+        data.forEach(function(word) {
+          trie = TRIE.put()
         });
-      }); 
-      it('check the resolved promise as a whole', function() {
-        var wordsNumber = lengthOfReadAndSplit('../doc/considerPhlebas.txt');
-        return expect(wordsNumber).to.eventually.be.within(172026, 172028); 
-      }); 
+        
+        
+        
+        
+        expect(data.length).to.equal(172027); 
+      });
     });
+    xit('check the resolved promise as a whole', function() {
+      var wordsNumber = lengthOfReadAndSplit('../doc/considerPhlebas.txt');
+      return expect(wordsNumber).to.eventually.be.within(172026, 172028); 
+    }); 
   });
-
-  function lengthOfReadAndSplit(filename) {
-    var xxx = Q.defer();
-    readAndSplit(filename).then(function(data) {
-      xxx.resolve(data.length);
-    });
-    return xxx.promise;
-  }
   
   function readAndSplit(filename) {
     var filePath = path.join(__dirname, filename);
