@@ -5,16 +5,15 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "mocha": "~1.21.4",
-    "chai": "~1.9.1",
-    "sinon": "~1.7.3",
-    "testem": "~0.6.19",
     "JSON2": "~0.1.0",
+    "chai": "~2.1.1",
+    "chai-as-promised": "^5.2.0",
+    "mocha": "~1.21.4",
     "q": "~1.0.1",
-    "sinon-chai": "~2.4.0"
+    "sinon": "~1.7.3",
+    "sinon-chai": "~2.8.0"
   },
   "author": "Marco Faustinelli",
   "license": "GPL3"
