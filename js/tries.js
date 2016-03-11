@@ -3,6 +3,7 @@ var JSON2 = require('JSON2');
 var stringify = JSON2.stringify;
 var parse = JSON2.parse;
 var log = console.log;
+var dump = function(t) { log(stringify(t)); }
 
 var code = function() {
 
@@ -12,11 +13,11 @@ var code = function() {
     var _char = arra.shift();
     var type = typeof trie[_char];
     if (arra.length === 0) {
-      result = (trie[_char] && !undefined(trie[_char].VAL))
+      result = (trie[_char] && !undef(trie[_char].VAL))
         ? trie[_char].VAL : null;
       return result;
     }
-    if (!undefined(type)) {
+    if (!undef(type)) {
       if (!trie[_char].VAL) {
         result = get(arra.join(''), trie[_char]);
       } else { 
@@ -35,7 +36,7 @@ var code = function() {
       return _trie;
     }
     var _char = arra.shift();
-    if (undefined(_trie[_char])) {
+    if (undef(_trie[_char])) {
       _trie[_char] = put(arra.join(''), value, {});
     } else {
       _trie[_char] = put(arra.join(''), value, _trie[_char]);
@@ -54,12 +55,49 @@ var code = function() {
       return newVal; 
     }
   }
-  return {
-    put: put,
-    get: get
+  
+  function size(trie) {
+    var result = {val:0};
+    _size(trie, result);
+    return result.val;
+    function _size(trie, curSize) {
+      dump(trie);
+      dump(curSize)
+      if (hasValue(trie)) {
+        log('++'+curSize.val)
+        curSize.val++;
+      }
+      var keys = trieKeys(trie);
+      if (keys.length > 0) {
+        keys.forEach(function(key) {
+          _size(trie[key], curSize);
+        });
+      }
+      //return curSize;
+    }
   }
   
-  function undefined(val) {
+  return {
+    put: put,
+    get: get,
+    size: size
+  }
+  
+  function trieKeys(trie) {
+    return Object.keys(trie).filter(function(k) {
+      return k !== 'VAL';
+    });
+  }
+  function hasValue(node) {
+    return !hasNoValue(node);
+  }
+  function hasNoValue(node) {
+    return undef(node.VAL);
+  }
+  function def(val) {
+    return !undef(val);
+  }
+  function undef(val) {
     return (typeof val === 'undefined');
   }
 }();

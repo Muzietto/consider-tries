@@ -85,5 +85,30 @@
         expect(TRIE.get('shore', trie)).to.be.equal(7);
       });
     });
+    describe.only('method SIZE', function() {
+      it('can count one for a single-char key at the top', function() {
+        var trie = TRIE.put('s', 0);
+        expect(TRIE.size(trie)).to.be.equal(1);
+      });
+      it('counts still one for a three-char key', function() {
+        var trie = TRIE.put('she', 0);
+        expect(TRIE.size(trie)).to.be.equal(1);
+      });
+      it('can count two for a two-key trie', function() {
+        var trie = TRIE.put('she', 0);
+        expect(TRIE.size(TRIE.put('sha', 1, trie))).to.be.equal(2);
+      });
+      it('can count a lot for a larger trie', function() {
+        var trie = TRIE.put('she', 0);
+        trie = TRIE.put('sells', 1, trie);
+        trie = TRIE.put('sea', 2, trie);
+        trie = TRIE.put('shells', 3, trie);
+        trie = TRIE.put('by', 4, trie);
+        trie = TRIE.put('the', 5, trie);
+        trie = TRIE.put('sea', 6, trie);
+        trie = TRIE.put('shore', 7, trie);
+        expect(TRIE.size(trie)).to.be.equal(7);
+      });
+    });
   });
 })();
