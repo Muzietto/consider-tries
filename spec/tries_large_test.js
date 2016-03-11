@@ -5,7 +5,9 @@
   var assert = require('assert');
   var sinon = require('sinon');
   var chai = require('chai');
+  var chaiAsPromised = require('chai-as-promised');
   var expect = chai.expect;
+  chai.use(chaiAsPromised);
   chai.use(require('sinon-chai'));
   var JSON2 = require('JSON2');
   var stringify = JSON2.stringify;
@@ -22,25 +24,30 @@
   
   describe('by reading files', function() {
     describe('one can', function() {
-      it.only('succed in a brand new endeavour', function(done) {
-        // TODO - use chai-as-promised
-        var deferred = Q.defer(); 
-        deferred.promise.then(function(data) {
-          //expect(12).to.be.equal(123);
-          console.log('received words: ' + data.length);
-          done(); 
-        },
-        function (err) {
-          done(err);
+      it('check parts of the resolved promise', function() {
+        var words = readAndSplit('../doc/considerPhlebas.txt');
+        return words.then(function(data) {
+          expect(data.length).to.equal(172027); 
         });
-        readAndSplit('../doc/considerPhlebas.txt', deferred);
+      }); 
+      it('check the resolved promise as a whole', function() {
+        var wordsNumber = lengthOfReadAndSplit('../doc/considerPhlebas.txt');
+        return expect(wordsNumber).to.eventually.be.within(172026, 172028); 
       }); 
     });
   });
-  
-  function readAndSplit(filename, deferred) {
-    var filePath = path.join(__dirname, filename);
 
+  function lengthOfReadAndSplit(filename) {
+    var xxx = Q.defer();
+    readAndSplit(filename).then(function(data) {
+      xxx.resolve(data.length);
+    });
+    return xxx.promise;
+  }
+  
+  function readAndSplit(filename) {
+    var filePath = path.join(__dirname, filename);
+    var deferred = Q.defer();
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err, data) {
       if (!err) { 
         var words = data
@@ -58,5 +65,6 @@
         deferred.reject(err);
       }
     });
+    return deferred.promise;
   }
 })();
