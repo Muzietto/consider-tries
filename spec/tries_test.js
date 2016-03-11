@@ -45,6 +45,12 @@
         var trie = TRIE.put('she', 0);
         expect(stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
+      xit('can start and increment the tree using the same function', function() {
+        var incr = function(x) { return x + 1; };
+        incr.startValue = 0;
+        var trie = TRIE.put('she', incr);
+        expect(stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
+      });
     });
     describe('method GET', function() {
       it('can retrieve the value for a single-char key at the top', function() {
@@ -67,6 +73,18 @@
         expect(TRIE.get('she', trie)).to.be.equal(0);
         expect(TRIE.get('shells', trie)).to.be.equal(1);
       });
+      it.only('can retrieve keys halfway a subtree', function() {
+        var trie = TRIE.put('she', 0);
+        trie = TRIE.put('shells', 1, trie);
+        trie = TRIE.put('shellstruck', 2, trie);
+        trie = TRIE.put('shellstrack', 3, trie);
+        trie = TRIE.put('shellstragedy', 3, trie);
+        expect(TRIE.get('she', trie)).to.be.equal(0);
+        expect(TRIE.get('shells', trie)).to.be.equal(1);
+        expect(TRIE.get('shellstruck', trie)).to.be.equal(2);
+        expect(TRIE.get('shellstrack', trie)).to.be.equal(3);
+        expect(TRIE.get('shellstragedy', trie)).to.be.equal(4);
+      });
       it('can produce pretty complex tries', function() {
         var trie = TRIE.put('she', 0);
         trie = TRIE.put('sells', 1, trie);
@@ -76,6 +94,31 @@
         trie = TRIE.put('the', 5, trie);
         trie = TRIE.put('sea', 6, trie);
         trie = TRIE.put('shore', 7, trie);
+        trie = TRIE.put('and', 8, trie);
+        trie = TRIE.put('seagulls', 9, trie);
+        expect(TRIE.get('she', trie)).to.be.equal(0);
+        expect(TRIE.get('sells', trie)).to.be.equal(1);
+        expect(TRIE.get('sea', trie)).to.be.equal(6);
+        expect(TRIE.get('shells', trie)).to.be.equal(3);
+        expect(TRIE.get('by', trie)).to.be.equal(4);
+        expect(TRIE.get('the', trie)).to.be.equal(5);
+        expect(TRIE.get('shore', trie)).to.be.equal(7);
+        expect(TRIE.get('and', trie)).to.be.equal(8);
+        expect(TRIE.get('seagulls', trie)).to.be.equal(9);
+      });
+      xit('can modify a key using a given function', function() {
+        var incr = function(x) { return x + 1; };
+        var trie = TRIE.put('she', 0);
+        trie = TRIE.put('sells', incr, trie);
+        trie = TRIE.put('sea', incr, trie);
+        trie = TRIE.put('shells', incr, trie);
+        trie = TRIE.put('by', incr, trie);
+        trie = TRIE.put('the', incr, trie);
+        trie = TRIE.put('sea', incr, trie);
+        trie = TRIE.put('shore', incr, trie);
+        trie = TRIE.put('sells', incr, trie);
+        trie = TRIE.put('sea', incr, trie);
+        trie = TRIE.put('shells', incr, trie);
         expect(TRIE.get('she', trie)).to.be.equal(0);
         expect(TRIE.get('sells', trie)).to.be.equal(1);
         expect(TRIE.get('sea', trie)).to.be.equal(6);

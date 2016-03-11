@@ -44,10 +44,11 @@ var code = function() {
     return _trie;
 
     function newVal(node) {
+          dump(value);
       var newVal = value;
       if (typeof value === 'function') {
         try {
-          newVal = value(node['VAL']);
+          newVal = value.startValue || value(node['VAL']);
         } catch (exc) {
           newVal = undefined;
         }
