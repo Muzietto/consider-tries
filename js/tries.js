@@ -56,15 +56,13 @@ var code = function() {
     }
   }
   
+  // mutable version
   function size(trie) {
     var result = {val:0};
     _size(trie, result);
     return result.val;
     function _size(trie, curSize) {
-      dump(trie);
-      dump(curSize)
       if (hasValue(trie)) {
-        log('++'+curSize.val)
         curSize.val++;
       }
       var keys = trieKeys(trie);
@@ -73,7 +71,6 @@ var code = function() {
           _size(trie[key], curSize);
         });
       }
-      //return curSize;
     }
   }
   

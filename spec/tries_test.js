@@ -85,7 +85,7 @@
         expect(TRIE.get('shore', trie)).to.be.equal(7);
       });
     });
-    describe.only('method SIZE', function() {
+    describe('method SIZE', function() {
       it('can count one for a single-char key at the top', function() {
         var trie = TRIE.put('s', 0);
         expect(TRIE.size(trie)).to.be.equal(1);
