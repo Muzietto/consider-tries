@@ -15,34 +15,34 @@
   var fs = require('fs');
   var Q = require('q');
 
-  var code = require('../js/tries');
-  var TRIE = code.TRIE;
+  var H = require(__dirname + '/../util/helper');
+  var TRIE = require('../js/tries').TRIE;
   
   var fs = require('fs');
   var path = require('path');
-
   
   describe('after loading arrays of words from large files', function() {
     beforeEach(function() {
       this.words = readAndSplit('../doc/considerPhlebas.txt');
     });
-    xit('check parts of the resolved promise', function() {
-      words.then(function(data) {
-        var trie = {};
+    it.only('can build very large tries', function() {
+      this.words.then(function(data) {
+        var startMillis = new Date().getTime();
+        H.log('Start building the trie: ' + new Date().toString());
+        var trie = {},counter=0;
         data.forEach(function(word) {
-          trie = TRIE.put()
+          H.log(++counter+'\033[F');
+          trie = TRIE.put(word, TRIE.incr, trie);
         });
-        
-        
-        
-        
-        expect(data.length).to.equal(172027); 
+        H.log(counter);
+        var endMillis = new Date().getTime();
+        var elapsed;
+        try { elapsed = (endMillis - startMillis)/1000} catch (e) {}
+        H.log('Trie complete: ' + new Date().toString());
+        H.log('Processing time in secs: ' + elapsed);
+        H.log('TRIE.size(trie): ' + TRIE.size(trie));
       });
     });
-    xit('check the resolved promise as a whole', function() {
-      var wordsNumber = lengthOfReadAndSplit('../doc/considerPhlebas.txt');
-      return expect(wordsNumber).to.eventually.be.within(172026, 172028); 
-    }); 
   });
   
   function readAndSplit(filename) {
