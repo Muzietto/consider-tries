@@ -39,15 +39,12 @@
         expect(H.stringify(TRIE.put('sha', 1, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":0},"a":{"VAL":1}}}}');
       });
       it('can modify a key using a given function', function() {
-        var incr = function(x) { return x + 1; };
         var trie = TRIE.put('she', 0);
-        expect(H.stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
+        expect(H.stringify(TRIE.put('she', TRIE.incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
       it('can start and increment the tree using the same augmented function', function() {
-        var incr = function(x) { return x + 1; };
-        incr.startValue = 0; // mandatory attribute
-        var trie = TRIE.put('she', incr);
-        expect(H.stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
+        var trie = TRIE.put('she', TRIE.incr);
+        expect(H.stringify(TRIE.put('she', TRIE.incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":2}}}}');
       });
     });
     describe('method GET', function() {
@@ -105,8 +102,7 @@
         expect(TRIE.get('seagulls', trie)).to.be.equal(9);
       });
       it('can initialize and modify any key using a given augmented function', function() {
-        var incr = function(x) { return x + 1; };
-        incr.startValue = 1;
+        var incr = TRIE.incr;
         var trie = TRIE.put('she', incr);
         trie = TRIE.put('sells', incr, trie);
         trie = TRIE.put('sea', incr, trie);

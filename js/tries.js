@@ -68,11 +68,15 @@
         }
       }
     }
+
+    var incr = function(x) { return x + 1; };
+    incr.startValue = 1; // mandatory attribute
     
     return {
       put: put,
       get: get,
-      size: size
+      size: size,
+      incr: incr
     }
 
     function trieKeys(trie) {
