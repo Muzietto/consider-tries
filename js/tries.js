@@ -21,7 +21,6 @@
     }
 
     function put(key, value, trie) {
-      //H.dump(value,'value')
       trie = trie || {};
       var _trie = H.parse(H.stringify(trie));
       var arra = key.split('');
