@@ -6,7 +6,7 @@
   var parse = JSON2.parse;
   var parse = JSON2.parse;
   var log = console.log;
-  var dump = function(t,x) { log(x + "=" + stringify(t)); }
+  var dump = function(t,x) { log(x + "=" + (stringify(t)||t.toString())); }
   
   // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
   if (!Object.keys) {
