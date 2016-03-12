@@ -25,14 +25,65 @@
     beforeEach(function() {
       this.words = readAndSplit('../doc/considerPhlebas.txt');
     });
-    it.only('can build very large tries', function() {
+    it('can build very large tries', function() {
       this.words.then(function(data) {
         var startMillis = new Date().getTime();
         H.log('Start building the trie: ' + new Date().toString());
         var trie = {},counter=0;
         data.forEach(function(word) {
-          H.log(++counter+'\033[F');
-          trie = TRIE.put(word, TRIE.incr, trie);
+          H.log(++counter+': ' + word.toLowerCase() + '                                                  \033[F');
+          trie = TRIE.put(word.toLowerCase(), TRIE.incr, trie);
+        });
+        H.log(counter);
+        var endMillis = new Date().getTime();
+        var elapsed;
+        try { elapsed = (endMillis - startMillis)/1000} catch (e) {}
+        H.log('Trie complete: ' + new Date().toString());
+        H.log('Processing time in secs: ' + elapsed);
+        H.log('TRIE.size(trie): ' + TRIE.size(trie));
+      });
+    });
+    it.only('can sort large lists and build a trie with the ordered words', function() {
+      this.words.then(function(data) {
+        H.log('Start sorting the list: ' + new Date().toString());
+        var trie = {}, sorted = data.sort(),counter=0;
+        H.log('Start building the trie: ' + new Date().toString());
+        sorted.forEach(function(word) {
+          H.log(++counter+': ' + word.toLowerCase() + '                                                  \033[F');
+          trie = TRIE.put(word.toLowerCase(), TRIE.incr, trie);
+        });
+        H.log(counter);
+        var endMillis = new Date().getTime();
+        var elapsed;
+        try { elapsed = (endMillis - startMillis)/1000} catch (e) {}
+        H.log('Trie complete: ' + new Date().toString());
+        H.log('Processing time in secs: ' + elapsed);
+        H.log('TRIE.size(trie): ' + TRIE.size(trie));
+      });
+    });
+    it.only('can make count tables out of large sorted lists and build a trie with the counts', function() {
+      this.words.then(function(data) {
+        H.log('Start sorting the list: ' + new Date().toString());
+        var trie = {}, sorted = data.sort(), counter = 0, counts = {};
+        H.log('Start building the count table: ' + new Date().toString());
+        sorted.forEach(function(word) {
+          var _word = word.toLowerCase();
+          H.log(++counter + ': ' + _word + '                                                  \033[F');
+          if (!counts[_word]) {
+            counts[_word] = 1;
+            return;
+          }
+          counts[_word]++;
+          return;
+        });
+        counter = 0;
+        H.log('End building the count table: ' + new Date().toString());
+        H.log('Count table keys: ' + Object.keys(counts).length);
+        H.log('Start building the trie: ' + new Date().toString());
+        Object.keys(counts).forEach(function(_word) {
+          var count = counts[_word];
+          H.log(++counter + ': ' + _word + ' -> ' + count + '                                                     \033[F');
+          trie = TRIE.put(_word, count, trie);
         });
         H.log(counter);
         var endMillis = new Date().getTime();
