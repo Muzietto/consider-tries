@@ -21,12 +21,12 @@
     }
 
     function put(key, value, trie) {
-      //dump(value,'value')
+      //H.dump(value,'value')
       trie = trie || {};
       var _trie = H.parse(H.stringify(trie));
       var arra = key.split('');
       if (arra.length === 1) {
-        _trie[key] = { VAL: newVal(_trie[key], value) };
+        _trie[key] = { VAL: newVal(_trie[key]) };
         return _trie;
       }
       var _char = arra.shift();
@@ -37,13 +37,13 @@
       }
       return _trie;
 
-      function newVal(node, valuez) {
-        var newVal = valuez;
-        if (typeof valuez === 'function') {
-          H.dump(valuez,'valuez')
-          H.dump(newVal,'newVal')
+      function newVal(node) {
+        var newVal = value;
+        if (typeof value === 'function') {
           try {
-            newVal = valuez.startValue || valuez(node['VAL']);
+            newVal = (undef(node) && def(value.startValue))
+                       ? value.startValue 
+                       : value(node['VAL']);
           } catch (exc) {
             newVal = undefined;
           }

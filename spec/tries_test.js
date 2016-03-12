@@ -43,10 +43,9 @@
         var trie = TRIE.put('she', 0);
         expect(H.stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
-      xit('can start and increment the tree using the same function', function() {
+      it('can start and increment the tree using the same augmented function', function() {
         var incr = function(x) { return x + 1; };
-        incr.startValue = 0;
-        H.dump(incr,'incr')
+        incr.startValue = 0; // mandatory attribute
         var trie = TRIE.put('she', incr);
         expect(H.stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
@@ -105,9 +104,10 @@
         expect(TRIE.get('and', trie)).to.be.equal(8);
         expect(TRIE.get('seagulls', trie)).to.be.equal(9);
       });
-      xit('can modify a key using a given function', function() {
+      it('can initialize and modify any key using a given augmented function', function() {
         var incr = function(x) { return x + 1; };
-        var trie = TRIE.put('she', 0);
+        incr.startValue = 1;
+        var trie = TRIE.put('she', incr);
         trie = TRIE.put('sells', incr, trie);
         trie = TRIE.put('sea', incr, trie);
         trie = TRIE.put('shells', incr, trie);
@@ -118,13 +118,14 @@
         trie = TRIE.put('sells', incr, trie);
         trie = TRIE.put('sea', incr, trie);
         trie = TRIE.put('shells', incr, trie);
-        expect(TRIE.get('she', trie)).to.be.equal(0);
-        expect(TRIE.get('sells', trie)).to.be.equal(1);
-        expect(TRIE.get('sea', trie)).to.be.equal(6);
-        expect(TRIE.get('shells', trie)).to.be.equal(3);
-        expect(TRIE.get('by', trie)).to.be.equal(4);
-        expect(TRIE.get('the', trie)).to.be.equal(5);
-        expect(TRIE.get('shore', trie)).to.be.equal(7);
+        trie = TRIE.put('shore', incr, trie);
+        expect(TRIE.get('she', trie)).to.be.equal(1);
+        expect(TRIE.get('sells', trie)).to.be.equal(2);
+        expect(TRIE.get('sea', trie)).to.be.equal(3);
+        expect(TRIE.get('shells', trie)).to.be.equal(2);
+        expect(TRIE.get('by', trie)).to.be.equal(1);
+        expect(TRIE.get('the', trie)).to.be.equal(1);
+        expect(TRIE.get('shore', trie)).to.be.equal(2);
       });
     });
     describe('method SIZE', function() {
