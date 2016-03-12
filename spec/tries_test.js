@@ -16,6 +16,10 @@
   var code = require('../js/tries');
   var TRIE = code.TRIE;
 
+var parse = JSON2.parse;
+var log = console.log;
+var dump = function(t) { log(stringify(t)); }
+
   describe('In a trie', function() {
     describe('method PUT', function() {
       it('can insert a single-char key at the top', function() {
@@ -45,7 +49,7 @@
         var trie = TRIE.put('she', 0);
         expect(stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
-      xit('can start and increment the tree using the same function', function() {
+      it.only('can start and increment the tree using the same function', function() {
         var incr = function(x) { return x + 1; };
         incr.startValue = 0;
         var trie = TRIE.put('she', incr);
@@ -73,17 +77,17 @@
         expect(TRIE.get('she', trie)).to.be.equal(0);
         expect(TRIE.get('shells', trie)).to.be.equal(1);
       });
-      it.only('can retrieve keys halfway a subtree', function() {
+      it('can retrieve keys halfway a subtree', function() {
         var trie = TRIE.put('she', 0);
         trie = TRIE.put('shells', 1, trie);
         trie = TRIE.put('shellstruck', 2, trie);
         trie = TRIE.put('shellstrack', 3, trie);
-        trie = TRIE.put('shellstragedy', 3, trie);
+        trie = TRIE.put('shellstragedy', 44, trie);
         expect(TRIE.get('she', trie)).to.be.equal(0);
         expect(TRIE.get('shells', trie)).to.be.equal(1);
         expect(TRIE.get('shellstruck', trie)).to.be.equal(2);
         expect(TRIE.get('shellstrack', trie)).to.be.equal(3);
-        expect(TRIE.get('shellstragedy', trie)).to.be.equal(4);
+        expect(TRIE.get('shellstragedy', trie)).to.be.equal(44);
       });
       it('can produce pretty complex tries', function() {
         var trie = TRIE.put('she', 0);

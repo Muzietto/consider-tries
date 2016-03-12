@@ -17,13 +17,7 @@ var code = function() {
         ? trie[_char].VAL : null;
       return result;
     }
-    if (!undef(type)) {
-      if (!trie[_char].VAL) {
-        result = get(arra.join(''), trie[_char]);
-      } else { 
-        result = trie[_char].VAL;
-      }
-    }
+    result = get(arra.join(''), trie[_char]);
     return result;
   }
 
@@ -44,11 +38,11 @@ var code = function() {
     return _trie;
 
     function newVal(node) {
-          dump(value);
+          
       var newVal = value;
       if (typeof value === 'function') {
         try {
-          newVal = value.startValue || value(node['VAL']);
+          newVal = /*value.startValue ||*/ value(node['VAL']);
         } catch (exc) {
           newVal = undefined;
         }
