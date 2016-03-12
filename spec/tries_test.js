@@ -1,8 +1,6 @@
 /*jshint asi: true, expr: true */
 (function() {
   'use strict';
-  
-  var H = require(__dirname + '/../util/helper');
 
   var assert = require('assert');
   var sinon = require('sinon');
@@ -11,7 +9,8 @@
   chai.use(require('sinon-chai'));
   var fs = require('fs');
   var Q = require('q');
-
+  
+  var H = require(__dirname + '/../util/helper');
   var code = require('../js/tries');
   var TRIE = code.TRIE;
 

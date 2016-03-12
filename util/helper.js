@@ -52,6 +52,7 @@
 
   if (typeof module === 'object' && typeof module.exports !== 'undefined') {
       module.exports = {
+          parse : parse,
           stringify : stringify,
           log : log,
           dump: dump

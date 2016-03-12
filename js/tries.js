@@ -2,11 +2,7 @@
 (function() {
   'use strict';
 
-  var JSON2 = require('JSON2');
-  var stringify = JSON2.stringify;
-  var parse = JSON2.parse;
-  var log = console.log;
-  var dump = function(t,x) { log(x + "=" + (stringify(t)||t.toString())); }
+  var H = require(__dirname + '/../util/helper');
 
   var code = function() {
 
@@ -27,7 +23,7 @@
     function put(key, value, trie) {
       //dump(value,'value')
       trie = trie || {};
-      var _trie = parse(stringify(trie));
+      var _trie = H.parse(H.stringify(trie));
       var arra = key.split('');
       if (arra.length === 1) {
         _trie[key] = { VAL: newVal(_trie[key], value) };
@@ -44,8 +40,8 @@
       function newVal(node, valuez) {
         var newVal = valuez;
         if (typeof valuez === 'function') {
-          //dump(valuez,'valuez')
-          //dump(newVal,'newVal')
+          H.dump(valuez,'valuez')
+          H.dump(newVal,'newVal')
           try {
             newVal = valuez.startValue || valuez(node['VAL']);
           } catch (exc) {
