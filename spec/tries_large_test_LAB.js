@@ -21,7 +21,6 @@
   var fs = require('fs');
   var path = require('path');
 
-  
   describe('by reading files', function() {
     describe('one can', function() {
       it('check parts of the resolved promise', function() {
