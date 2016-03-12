@@ -22,7 +22,7 @@
   var jsonfile = require('jsonfile');
   var path = require('path');
   
-  describe('after loading arrays of words from large files', function() {
+  xdescribe('after loading arrays of words from large files', function() {
     beforeEach(function() {
       this.words = readAndSplit('/../doc/considerPhlebas.txt');
     });
@@ -98,12 +98,12 @@
       });
     });
   });
-  describe('willing to prepare half-baked results', function() {
+  xdescribe('willing to prepare half-baked results', function() {
     beforeEach(function() {
       this.filename = '/../doc/considerPhlebas.txt';
       this.words = readAndSplit(this.filename);
     });
-    it.only('one can save large tries as JSON to use them later', function() {
+    it('one can save large tries as JSON to use them later', function() {
       var self = this;
       return this.words.then(function(data) {
         var startMillis = new Date().getTime();
