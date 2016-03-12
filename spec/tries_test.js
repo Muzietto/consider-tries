@@ -1,59 +1,55 @@
 /*jshint asi: true, expr: true */
 (function() {
-  require(__dirname + '/../util/helper');
+  'use strict';
+  
+  var H = require(__dirname + '/../util/helper');
 
   var assert = require('assert');
   var sinon = require('sinon');
   var chai = require('chai');
   var expect = chai.expect;
   chai.use(require('sinon-chai'));
-  var JSON2 = require('JSON2');
-  var stringify = JSON2.stringify;
-  var parse = JSON2.parse;
   var fs = require('fs');
   var Q = require('q');
 
   var code = require('../js/tries');
   var TRIE = code.TRIE;
 
-var parse = JSON2.parse;
-var log = console.log;
-var dump = function(t) { log(stringify(t)); }
-
   describe('In a trie', function() {
     describe('method PUT', function() {
       it('can insert a single-char key at the top', function() {
-        expect(stringify(TRIE.put('s', 0))).to.be.equal('{"s":{"VAL":0}}');
+        expect(H.stringify(TRIE.put('s', 0))).to.be.equal('{"s":{"VAL":0}}');
       });
       it('can insert a three-char key at the top', function() {
-        expect(stringify(TRIE.put('she', 1))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
+        expect(H.stringify(TRIE.put('she', 1))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
       it('can insert two keys at the top', function() {
         var trie = TRIE.put('s', 0);
-        expect(stringify(TRIE.put('h', 1, trie))).to.be.equal('{"s":{"VAL":0},"h":{"VAL":1}}');
+        expect(H.stringify(TRIE.put('h', 1, trie))).to.be.equal('{"s":{"VAL":0},"h":{"VAL":1}}');
       });
       it('can overwrite a single-char key at the top', function() {
         var trie = TRIE.put('s', 0);
-        expect(stringify(TRIE.put('s', 1, trie))).to.be.equal('{"s":{"VAL":1}}');
+        expect(H.stringify(TRIE.put('s', 1, trie))).to.be.equal('{"s":{"VAL":1}}');
       });
       it('can overwrite a single-char deep down the tree', function() {
         var trie = TRIE.put('she', 0);
-        expect(stringify(TRIE.put('she', 1, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
+        expect(H.stringify(TRIE.put('she', 1, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
       it('can insert two keys deep down the trie', function() {
         var trie = TRIE.put('she', 0);
-        expect(stringify(TRIE.put('sha', 1, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":0},"a":{"VAL":1}}}}');
+        expect(H.stringify(TRIE.put('sha', 1, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":0},"a":{"VAL":1}}}}');
       });
       it('can modify a key using a given function', function() {
         var incr = function(x) { return x + 1; };
         var trie = TRIE.put('she', 0);
-        expect(stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
+        expect(H.stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
-      it.only('can start and increment the tree using the same function', function() {
+      xit('can start and increment the tree using the same function', function() {
         var incr = function(x) { return x + 1; };
         incr.startValue = 0;
+        H.dump(incr,'incr')
         var trie = TRIE.put('she', incr);
-        expect(stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
+        expect(H.stringify(TRIE.put('she', incr, trie))).to.be.equal('{"s":{"h":{"e":{"VAL":1}}}}');
       });
     });
     describe('method GET', function() {
