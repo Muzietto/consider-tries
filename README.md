@@ -3,16 +3,14 @@ Indexing a whole book with tries, and comparing search times inside a plain JS o
 
 Search times come out as follows:
 
-|-------------|---------------------|-----------------------|
-|NUM.SEARCHES | SEARCH TIME IN TRIE | SEARCH TIME IN OBJECT |
-|-------------|---------------------|-----------------------|
-|        100  |            0,008s   |           0,006s      |
-|      1.000  |            0,059s   |           0,065s      |
-|     10.000  |            0,583s   |           0,667s      |
-|    100.000  |            5,718s   |           6,576s      |
-|  1.000.000  |           56,525s   |          65,43s       |
-| 10.000.000  |          563s       |  out-of-memory error  |
-|-------------|---------------------|-----------------------|
+NUM.SEARCHES | SEARCH TIME IN TRIE | SEARCH TIME IN OBJECT 
+-------------|---------------------|-----------------------
+100|0,008s|0,006s     
+1.000|0,059s|0,065s     
+10.000|0,583s|0,667s     
+100.000|5,718s|6,576s     
+1.000.000|56,525s|65,43s     
+10.000.000|563s|out-of-memory error  
 
 ![alt image](/img/IMB-Consider-Phlebas-Mark-Salwowski-Art.jpg)
 
