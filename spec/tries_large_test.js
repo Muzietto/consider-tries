@@ -149,13 +149,12 @@
     it('one can save large JSON word count tables to use them later to compare with tries', function() {
       var self = this;
       return this.words.then(function(data) {
-        var startMillis = new Date().getTime();
         H.log('Start sorting the list: ' + new Date().toString());
         var trie = {}, sorted = data.sort(), counter = 0, counts = {};
         H.log('Start building the count table: ' + new Date().toString());
         sorted.forEach(function(word) {
           var _word = word.toLowerCase();
-          H.log(++counter + ': ' + _word + '                                                  \033[F');
+          H.log(++counter + ': ' + _word + '                                                  \033[F'); 
           if (!counts[_word]) {
             counts[_word] = 1;
             return;
@@ -163,7 +162,7 @@
           counts[_word]++;
           return;
         });
-        counter = 0; 
+        counter = 0;
         H.log('End building the count table: ' + new Date().toString());
         H.log('Count table keys: ' + Object.keys(counts).length);
         var fileversion = Math.floor(Math.random() * 100000);
