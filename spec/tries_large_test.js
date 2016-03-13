@@ -101,6 +101,7 @@
   xdescribe('willing to prepare half-baked results', function() {
     beforeEach(function() {
       this.filename = '/../doc/considerPhlebas.txt';
+      //this.filename = '/../doc/cp.txt';
       this.words = readAndSplit(this.filename);
     });
     it('one can save large tries as JSON to use them later', function() {
@@ -145,6 +146,35 @@
         H.log('Trie saved in : ' + jsonfilename);
       });
     });
+    it('one can save large JSON word count tables to use them later to compare with tries', function() {
+      var self = this;
+      return this.words.then(function(data) {
+        var startMillis = new Date().getTime();
+        H.log('Start sorting the list: ' + new Date().toString());
+        var trie = {}, sorted = data.sort(), counter = 0, counts = {};
+        H.log('Start building the count table: ' + new Date().toString());
+        sorted.forEach(function(word) {
+          var _word = word.toLowerCase();
+          H.log(++counter + ': ' + _word + '                                                  \033[F');
+          if (!counts[_word]) {
+            counts[_word] = 1;
+            return;
+          }
+          counts[_word]++;
+          return;
+        });
+        counter = 0; 
+        H.log('End building the count table: ' + new Date().toString());
+        H.log('Count table keys: ' + Object.keys(counts).length);
+        var fileversion = Math.floor(Math.random() * 100000);
+        var jsonfilename = __dirname + self.filename + '.' + fileversion + '.json'
+        H.log('About to save word count table in : ' + jsonfilename);
+        jsonfile.writeFile(jsonfilename, counts, { spaces: 2 }, function(err) {
+          console.error('Error was ' + err);
+        })
+        H.log('Word count table saved in : ' + jsonfilename);
+      });
+    });
   });
   
   function readAndSplit(filename) {
@@ -155,7 +185,7 @@
         var words = data
           .split(/[,.;:!?\s\n]/)
           .map(function(word) {
-            return word
+            return word 
               .replace(/[\r\n,\.;:\(\)\!\?]|(?:'s|')/g,'');
           })
           .filter(function(x) { 
