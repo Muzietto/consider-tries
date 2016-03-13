@@ -10,7 +10,7 @@
   
   var H = require(__dirname + '/../util/helper');
   var code = require('../js/tries');
-  var TRIE = code.TRIE;
+  var TRIE = code.TRIE; 
 
   //var trie = require('../doc/considerPhlebas.txt.trie.js');
   //var counts = require('../doc/considerPhlebas.txt.table.js');
@@ -18,7 +18,7 @@
   describe.only('willing to compare speed of search', function() {
     before(function() {
       this.timeout(60000000);
-      this.numRuns = 100000;
+      this.numRuns = 1000000;
       this.countsNum = 10910;
       this.trie = require('../doc/considerPhlebas.txt.trie.js');
       this.counts = require('../doc/considerPhlebas.txt.table.js');
