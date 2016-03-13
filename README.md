@@ -1,5 +1,5 @@
 # consider-tries
-Indexing [a whole book](https://github.com/Muzietto/consider-tries/blob/master/doc/ConsiderPhlebas.pdf) with tries, and comparing search times inside a plain JS object.
+Indexing [a whole book](https://github.com/Muzietto/consider-tries/blob/master/doc/ConsiderPhlebas.pdf) in a trie, and comparing search times with those in a plain JS object.
 
 Search times come out as follows:
 
