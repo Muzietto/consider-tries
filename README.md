@@ -1,7 +1,7 @@
 # consider-tries
 Indexing [a whole book](https://github.com/Muzietto/consider-tries/blob/master/doc/ConsiderPhlebas.txt) in a trie, and comparing search times with those in a plain JS object.
 
-Search times come out as follows:
+There are approximately 11.000 keys. Search times come out as follows:
 
 NUM.SEARCHES | SEARCH TIME IN TRIE | SEARCH TIME IN OBJECT 
 -------------|---------------------|-----------------------
