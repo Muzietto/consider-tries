@@ -8,4 +8,4 @@ Indexing a whole book with tries, and comparing.
 
 1) npm install
 
-2) .\node_modules\.bin\testem
+2) mocha spec/*.js --watch
